@@ -3,7 +3,8 @@
 
     <!-- tela inicial -->
     <div class="principal" *ngIf="showInicio">
-        <a href="#" class="botao" (click)="iniciarJogo()">Iniciar</a>
+        <input type="button" class="botao" (click)="iniciarJogo(1)" value="1 Jogador">
+        <input type="button" class="botao" (click)="iniciarJogo(2)" value="2 Jogadores">
     </div>
     <!-- fim tela inicial -->
 

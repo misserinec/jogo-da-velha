@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 
 export class JogoDaVelhaService {
 
@@ -16,11 +14,13 @@ export class JogoDaVelhaService {
   private tabuleiro: any;
   private numMovimentos: number;
   private vitoria: any;
+  private quantidadeJogadores: number;
 
   private _jogador: number;
   private _showInicio: boolean;
   private _showTabuleiro: boolean;
   private _showFinal: boolean;
+  private _labelJogador: string;
 
   constructor() { }
 
@@ -36,6 +36,7 @@ export class JogoDaVelhaService {
     this._jogador = this.X;
     this.vitoria = false;
     this.inicializarTabuleiro();
+    this._labelJogador = 'X';
   }
 
   /**
@@ -82,12 +83,21 @@ export class JogoDaVelhaService {
   }
 
   /**
+  * @description Retorna o nome de jogador
+  * @return string
+  */
+  get nomeJogador(): string {
+    return this._labelJogador;
+  }
+
+  /**
    * @description Exibe o tabuleiro.
    * @return void
    */
-  iniciarJogo(): void {
+  iniciarJogo(qJogadores: number): void {
     this._showInicio = false;
     this._showTabuleiro = true;
+    this.quantidadeJogadores = qJogadores;
   }
 
   /**
@@ -108,7 +118,7 @@ export class JogoDaVelhaService {
       this.vitoria = this.fimJogo(posX, posY, this.tabuleiro, this._jogador);
       this._jogador = (this._jogador === this.X) ? this.O : this.X;
 
-      if (!this.vitoria && this.numMovimentos < 9) {
+      if (this.quantidadeJogadores === 1  && (!this.vitoria && this.numMovimentos < 9)) {
         this.cpuJogar();
       }
 
@@ -231,7 +241,6 @@ export class JogoDaVelhaService {
    * @return boolean
    */
   exibirX(posX: number, posY: number): boolean {
-    console.log('exibirX', this.tabuleiro[posX][posY] === this.X, this.tabuleiro[posX][posY], this.X, '- ', posX, posY);
     return this.tabuleiro[posX][posY] === this.X;
   }
 
@@ -274,8 +283,5 @@ export class JogoDaVelhaService {
    */
   novoJogo(): void {
     this.inicializar();
-    this._showFinal = false;
-    this._showInicio = false;
-    this._showTabuleiro = true;
   }
 }

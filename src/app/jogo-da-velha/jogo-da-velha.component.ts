@@ -44,8 +44,8 @@ export class JogoDaVelhaComponent implements OnInit {
    * @description Inicializa os dados de um jogo
    * @return void
    */
-  iniciarJogo(): void{
-    this.jogoDaVelhaService.iniciarJogo();
+  iniciarJogo(qJogadores: number): void{
+    this.jogoDaVelhaService.iniciarJogo(qJogadores);
   }
 
   /**
@@ -76,6 +76,14 @@ export class JogoDaVelhaComponent implements OnInit {
    */
    exibirO(posX: number, posY: number): boolean {
     return this.jogoDaVelhaService.exibirO(posX, posY);
+  }
+
+  /**
+   * @description Retorna o nome de jogador
+   * @return string
+   */
+  get nomeJogador(): string {
+    return this.jogoDaVelhaService.nomeJogador;
   }
 
   /**
